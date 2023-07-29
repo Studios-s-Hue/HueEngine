@@ -12,9 +12,13 @@ add_library(HueEngine
   "include/HueEngine/Window/AppWindow.h"
   "source/HueEngine/Window/AppWindow.cpp"
 
-  "include/HueEngine/Game/GraphicsWindow.h" 
-  "source/HueEngine/Game/GraphicsWindow.cpp" 
- "include/HueEngine/Game/Game.h" "source/HueEngine/Game/Game.cpp" "include/HueEngine/Core.h")
+  "include/HueEngine/Game/GraphicsWindow.h"
+  "source/HueEngine/Game/GraphicsWindow.cpp"
+  "include/HueEngine/Game/Game.h"
+
+  "source/HueEngine/Game/Game.cpp"
+  "include/HueEngine/Core.h"
+)
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET HueEngine PROPERTY CXX_STANDARD 17)
