@@ -13,7 +13,7 @@ public:
 public:
     void Run();
     void Quit();
-    void SetTitle(const wchar_t *title);
+    void SetTitle(const char *title);
     void Init(const WindowProperties &properties);
 
 public:
@@ -26,7 +26,7 @@ protected: // Events
     virtual void onUpdate(float delta_time) {}
 
 private:
-    void onUpdateInternal(); 
+    void onUpdateInternal();
 
 private:
     bool m_isRunning = true;

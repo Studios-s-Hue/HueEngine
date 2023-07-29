@@ -26,11 +26,12 @@ void Game::Run()
 
     onCreate();
 
-    while (m_isRunning)
+    while (m_isRunning && !m_graphics_window->ShouldClose())
     {
-        m_graphics_window->UpdateInternal(&m_isRunning);
         onUpdateInternal();
     }
+    
+    m_isRunning = false;
 
     onQuit();
 }
@@ -41,7 +42,7 @@ void Game::Quit()
     m_graphics_window->onDestroy();
 }
 
-void Game::SetTitle(const wchar_t *title)
+void Game::SetTitle(const char* title)
 {
     m_graphics_window->SetTitle(title);
 }
@@ -49,7 +50,7 @@ void Game::SetTitle(const wchar_t *title)
 void Game::Init(const WindowProperties &properties)
 {
     // create window
-    m_graphics_window->Init(properties);
+    assert(m_graphics_window->Init(properties));
     // set game ready
     m_bReady = true;
 }

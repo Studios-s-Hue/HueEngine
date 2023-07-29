@@ -1,45 +1,81 @@
 
-#include <HueEngine/Window/AppWindow.h> 
+#include <HueEngine/Window/AppWindow.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 AppWindow::AppWindow()
 {
-	//TODO
+    // TODO
 }
 
 AppWindow::~AppWindow()
 {
-	//TODO
+    if (m_glfwWindow)
+    {
+        glfwDestroyWindow(m_glfwWindow);
+        glfwTerminate();
+    }
 }
 
 bool AppWindow::Init(WindowProperties properties)
 {
-	//TODO
-	return false;
+    if (!glfwInit())
+    {
+        return false;
+    }
+
+    m_glfwWindow = glfwCreateWindow(properties.width, properties.height, properties.title, NULL, NULL);
+    if (!m_glfwWindow)
+    {
+        glfwTerminate();
+        return false;
+    }
+
+    // Set up the OpenGL context
+    glfwMakeContextCurrent(m_glfwWindow);
+
+    // Load OpenGL functions using glad
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        return false;
+    }
+
+    return true;
 }
 
-void* AppWindow::GetHandle()
+void *AppWindow::GetHandle()
 {
-	//TODO
-	return nullptr;
+    return m_glfwWindow;
 }
 
-void AppWindow::SetTitle(const wchar_t* title)
+void AppWindow::SetTitle(const char *title)
 {
-	//TODO
+    glfwSetWindowTitle(m_glfwWindow, title);
 }
 
 bool AppWindow::IsFocused() const
 {
-	//TODO
-	return false;
+    return glfwGetWindowAttrib(m_glfwWindow, GLFW_FOCUSED);
 }
 
 WindowState AppWindow::GetWindowState() const
 {
-    return WindowState();
+    if (glfwGetWindowAttrib(m_glfwWindow, GLFW_ICONIFIED))
+    {
+        return WindowState::Minimized;
+    }
+    else if (glfwGetWindowAttrib(m_glfwWindow, GLFW_MAXIMIZED))
+    {
+        return WindowState::Maximized;
+    }
+    else
+    {
+        return WindowState::Normal;
+    }
 }
 
-void AppWindow::UpdateInternal(bool *isRunning)
+bool AppWindow::ShouldClose() const
 {
-	//TODO
+    return glfwWindowShouldClose(m_glfwWindow);
 }
+ 

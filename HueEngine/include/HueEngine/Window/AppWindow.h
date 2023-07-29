@@ -5,8 +5,7 @@
 
 struct WindowProperties
 {
-	LPCSTR title = (LPCSTR) "My Game";
-	LPCSTR className = (LPCSTR) "HUEeWindowClass";
+	const char *title = "My Game";
 	i32 width = 1920;
 	i32 height = 1080;
 	bool vsync;
@@ -43,9 +42,10 @@ public:
 
 public:
 	void *GetHandle();
-	void SetTitle(const wchar_t *title);
+	void SetTitle(const char *title);
 	bool IsFocused() const;
 	WindowState GetWindowState() const;
+	bool ShouldClose() const;
 
 public:
 	// EVENTs
@@ -55,12 +55,8 @@ public:
 	virtual void onFocus() {}
 	virtual void onKillFocus() {}
 
-private:
-	// static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-	void UpdateInternal(bool *isRunning);
-
 protected:
-	HWND m_hwnd;
+	struct GLFWwindow *m_glfwWindow;
 
 private:
 	friend class Game;
