@@ -4,6 +4,25 @@ include(FetchContent)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+option(ASSIMP_BUILD_ASSIMP_TOOLS OFF)
+option(ASSIMP_BUILD_SAMPLES OFF)
+option(ASSIMP_BUILD_TESTS OFF)
+option(BUILD_BULLET2_DEMOS OFF)
+option(BUILD_CPU_DEMOS OFF)
+option(BUILD_EXTRAS OFF)
+option(BUILD_OPENGL3_DEMOS OFF)
+option(BUILD_UNIT_TESTS OFF)
+
+if(MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4")
+else()
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic -std=c++17")
+
+  if(NOT WIN32)
+    set(GLAD_LIBRARIES dl)
+  endif()
+endif()
+
 FetchContent_Declare(
   glfw
   GIT_REPOSITORY https://github.com/glfw/glfw
@@ -37,13 +56,13 @@ if(NOT glad_POPULATED)
   add_subdirectory(${glad_SOURCE_DIR} ${glad_BINARY_DIR})
 endif()
 
-
 FetchContent_Declare(
   linmath
   GIT_REPOSITORY https://github.com/datenwolf/linmath.h.git
 )
 
 FetchContent_GetProperties(linmath)
+
 if(NOT linmath_POPULATED)
   FetchContent_Populate(linmath)
   add_library(linmath INTERFACE)
