@@ -60,6 +60,7 @@ public:
 
 private:
 	static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+	void onUpdateInternal();
 
 protected:
 	GLFWwindow *m_glfwWindow;

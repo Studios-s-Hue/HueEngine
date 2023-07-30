@@ -1,7 +1,7 @@
 
 #include <HueEngine/Window/AppWindow.h>
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <GLFW/glfw3.h> 
 
 AppWindow::AppWindow()
 {
@@ -61,6 +61,13 @@ void AppWindow::framebuffer_size_callback(GLFWwindow *window, int width, int hei
 
     glViewport(0, 0, width, height);
     appWindow->onResize();
+}
+
+void AppWindow::onUpdateInternal()
+{
+    glfwPollEvents();
+    onUpdate();
+    glfwSwapBuffers(m_glfwWindow);
 }
 
 void *AppWindow::GetHandle()

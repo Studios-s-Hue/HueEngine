@@ -28,6 +28,7 @@ void Game::Run()
 
     while (m_isRunning && !m_graphics_window->ShouldClose())
     {
+        m_graphics_window->onUpdateInternal();
         onUpdateInternal();
     }
     
