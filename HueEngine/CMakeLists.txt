@@ -37,6 +37,19 @@ if(NOT glad_POPULATED)
   add_subdirectory(${glad_SOURCE_DIR} ${glad_BINARY_DIR})
 endif()
 
+
+FetchContent_Declare(
+  linmath
+  GIT_REPOSITORY https://github.com/datenwolf/linmath.h.git
+)
+
+FetchContent_GetProperties(linmath)
+if(NOT linmath_POPULATED)
+  FetchContent_Populate(linmath)
+  add_library(linmath INTERFACE)
+  target_include_directories(linmath INTERFACE ${linmath_SOURCE_DIR})
+endif()
+
 include_directories(include)
 
 add_library(HueEngine
@@ -54,7 +67,7 @@ add_library(HueEngine
   "include/HueEngine/Core.h"
 )
 
-target_link_libraries(HueEngine glfw glad)
+target_link_libraries(HueEngine PRIVATE glfw glad linmath)
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET HueEngine PROPERTY CXX_STANDARD 17)
