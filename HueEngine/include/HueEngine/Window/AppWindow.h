@@ -20,6 +20,8 @@ enum class WindowState
 	Maximized
 };
 
+struct GLFWwindow;
+
 class AppWindow
 {
 public:
@@ -54,9 +56,13 @@ public:
 	virtual void onDestroy() {}
 	virtual void onFocus() {}
 	virtual void onKillFocus() {}
+	virtual void onResize() {}
+
+private:
+	static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 
 protected:
-	struct GLFWwindow *m_glfwWindow;
+	GLFWwindow *m_glfwWindow;
 
 private:
 	friend class Game;

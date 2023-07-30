@@ -24,12 +24,24 @@ bool AppWindow::Init(WindowProperties properties)
         return false;
     }
 
+    // https://www.glfw.org/docs/latest/window.html#window_hints
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // Core profile, ignore deprecated functions
+    // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // For Mac OS X
+
     m_glfwWindow = glfwCreateWindow(properties.width, properties.height, properties.title, NULL, NULL);
     if (!m_glfwWindow)
     {
         glfwTerminate();
         return false;
     }
+
+    // Set the user pointer to the class instance
+    glfwSetWindowUserPointer(m_glfwWindow, this);
+
+    // Set the window callbacks
+    glfwSetFramebufferSizeCallback(m_glfwWindow, framebuffer_size_callback);
 
     // Set up the OpenGL context
     glfwMakeContextCurrent(m_glfwWindow);
@@ -41,6 +53,14 @@ bool AppWindow::Init(WindowProperties properties)
     }
 
     return true;
+}
+
+void AppWindow::framebuffer_size_callback(GLFWwindow *window, int width, int height)
+{
+    AppWindow *appWindow = static_cast<AppWindow *>(glfwGetWindowUserPointer(window));
+
+    glViewport(0, 0, width, height);
+    appWindow->onResize();
 }
 
 void *AppWindow::GetHandle()
@@ -78,4 +98,3 @@ bool AppWindow::ShouldClose() const
 {
     return glfwWindowShouldClose(m_glfwWindow);
 }
- 
