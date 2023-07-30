@@ -89,6 +89,8 @@ add_library(HueEngine
 target_link_libraries(HueEngine PUBLIC glfw glad linmath) # public for now
 # target_link_libraries(HueEngine PRIVATE glfw glad linmath)
 
+target_include_directories(HueEngine PUBLIC include)
+
 if(CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET HueEngine PROPERTY CXX_STANDARD 17)
 endif()
