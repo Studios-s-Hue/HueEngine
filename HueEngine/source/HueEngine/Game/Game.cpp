@@ -40,6 +40,7 @@ void Game::Run()
 void Game::Quit()
 {
     m_isRunning = false;
+    m_graphics_window->Quit();
     m_graphics_window->onDestroy();
 }
 

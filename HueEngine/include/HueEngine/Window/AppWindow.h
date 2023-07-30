@@ -48,6 +48,7 @@ public:
 	bool IsFocused() const;
 	WindowState GetWindowState() const;
 	bool ShouldClose() const;
+	void Quit();
 
 public:
 	// EVENTs

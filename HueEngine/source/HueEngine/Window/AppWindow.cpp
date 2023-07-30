@@ -105,3 +105,8 @@ bool AppWindow::ShouldClose() const
 {
     return glfwWindowShouldClose(m_glfwWindow);
 }
+
+void AppWindow::Quit()
+{
+    glfwSetWindowShouldClose(m_glfwWindow, true);
+}
