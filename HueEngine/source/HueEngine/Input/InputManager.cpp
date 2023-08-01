@@ -1,6 +1,7 @@
 #include <HueEngine/Input/InputManager.h>
 #include <HueEngine/Game/Game.h>
 #include <HueEngine/Game/GraphicsWindow.h>
+#include "InputManager.h"
 
 InputManager::InputManager() : m_inputEnable(true) {}
 
@@ -68,9 +69,23 @@ void InputManager::SetInputEnable(bool enable)
     m_inputEnable = enable;
 }
 
+void InputManager::SetInputLock(bool lock)
+{
+    auto window = nullptr;
+    // Hide the mouse cursor and  // Lock the mouse cursor to the window
+    if (lock)
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    }
+    else
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    }
+}
+
 void InputManager::Update(Game *game)
 {
-    //TODO maybe this is not the best way to get window handle
+    // TODO maybe this is not the best way to get window handle
     auto window = static_cast<GLFWwindow *>(game->GetGraphicsWindow()->GetHandle());
 
     if (m_inputEnable)

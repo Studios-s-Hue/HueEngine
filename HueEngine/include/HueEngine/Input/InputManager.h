@@ -21,6 +21,7 @@ public:
     float GetMouseYAxis() const;
 
     void SetInputEnable(bool enable);
+    void SetInputLock(bool lock);
 
     // void SetScreenArea(const Rect& area);
 
