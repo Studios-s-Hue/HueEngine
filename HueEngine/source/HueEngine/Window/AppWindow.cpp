@@ -13,8 +13,8 @@ AppWindow::~AppWindow()
     if (m_glfwWindow)
     {
         glfwDestroyWindow(m_glfwWindow);
-        glfwTerminate();
     }
+    glfwTerminate();
 }
 
 bool AppWindow::Init(WindowProperties properties)
