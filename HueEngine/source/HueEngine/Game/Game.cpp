@@ -105,8 +105,13 @@ void Game::onUpdateInternal()
     // update delta time
     m_game_timer->Update();
 
+    float delta_time = GetDeltaTime();
+
     // update input
     m_input_manager->Update(this);
+
+    // update game
+    onUpdate(delta_time);
 
     // Update all game components like input, physics,audio, etc.
 }
