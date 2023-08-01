@@ -1,17 +1,20 @@
 #include <HueEngine/Game/Game.h>
 #include <HueEngine/Game/GraphicsWindow.h>
-#include <HueEngine/CurrentPlatform.h>
+#include <HueEngine/Game/GameTimer.h>
+#include <HueEngine/CurrentPlatform.h> 
 
 Game::Game()
 {
     // TODO on platform windows initialize CoInitializeEx
     m_graphics_window = std::make_unique<GraphicsWindow>(this);
+    m_game_timer = std::make_unique<GameTimer>();
 }
 
 Game::~Game()
 {
     // TODO on platform windows call CoUninitialize
     m_graphics_window = nullptr;
+    m_game_timer = nullptr;
 }
 
 GraphicsWindow *Game::GetGraphicsWindow()
@@ -23,6 +26,7 @@ void Game::Run()
 {
     assert(m_bReady);
     assert(m_graphics_window);
+    assert(m_game_timer);
 
     onCreate();
 
@@ -67,6 +71,12 @@ void Game::SetGamePaused(bool paused)
     m_bIsGamePaused = paused;
 }
 
+float Game::GetDeltaTime()
+{
+    // Maybe we can return double instead of float
+    return static_cast<float>(m_game_timer->GetDeltaTime());
+}
+
 void Game::onUpdateInternal()
 {
 
@@ -84,6 +94,9 @@ void Game::onUpdateInternal()
     {
         return;
     }
+
+    // update delta time
+    m_game_timer->Update();
 
     // Update all game components like input, physics,audio, etc.
 }

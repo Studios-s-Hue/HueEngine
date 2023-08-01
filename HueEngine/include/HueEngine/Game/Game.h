@@ -20,6 +20,9 @@ public:
     bool IsGamePaused() const;
     void SetGamePaused(bool paused);
 
+public:
+	float GetDeltaTime();
+
 protected: // Events
     virtual void onQuit() {}
     virtual void onCreate() {}
@@ -31,11 +34,11 @@ private:
 private:
     bool m_isRunning = true;
     bool m_bReady = false;
-    bool m_bIsGamePaused = false;
-    f32 m_delta_time = 0.0f;
+    bool m_bIsGamePaused = false; 
 
 private:
     std::unique_ptr<GraphicsWindow> m_graphics_window;
+    std::unique_ptr<GameTimer> m_game_timer;
 
 private:
     friend class GraphicsWindow;

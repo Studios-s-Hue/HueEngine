@@ -84,7 +84,7 @@ add_library(HueEngine
 
   "source/HueEngine/Game/Game.cpp"
   "include/HueEngine/Core.h"
-)
+ "include/HueEngine/Game/GameTimer.h" "source/HueEngine/Game/GameTimer.cpp")
 
 target_link_libraries(HueEngine PUBLIC glfw glad linmath) # public for now
 # target_link_libraries(HueEngine PRIVATE glfw glad linmath)
