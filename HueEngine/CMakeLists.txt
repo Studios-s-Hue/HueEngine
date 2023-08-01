@@ -84,11 +84,19 @@ add_library(HueEngine
 
   "source/HueEngine/Game/Game.cpp"
   "include/HueEngine/Core.h"
- "include/HueEngine/Game/GameTimer.h" "source/HueEngine/Game/GameTimer.cpp")
+
+  "include/HueEngine/Game/GameTimer.h"
+  "source/HueEngine/Game/GameTimer.cpp"
+
+  "include/HueEngine/Input/InputManager.h"
+
+  "include/HueEngine/Input/InputKeysType.h"
+  "source/HueEngine/Input/InputManager.cpp"
+)
 
 target_link_libraries(HueEngine PUBLIC glfw glad linmath) # public for now
-# target_link_libraries(HueEngine PRIVATE glfw glad linmath)
 
+# target_link_libraries(HueEngine PRIVATE glfw glad linmath)
 target_include_directories(HueEngine PUBLIC include)
 
 if(CMAKE_VERSION VERSION_GREATER 3.12)
