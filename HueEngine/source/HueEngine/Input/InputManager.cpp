@@ -85,11 +85,8 @@ void InputManager::Update(Game *game)
         for (int i = firstKey; i <= lastKey; ++i)
         {
             auto key = static_cast<EKey>(i);
-            auto keyExistInMap = m_keyState.find(key);
-            if (keyExistInMap != m_keyState.end())
-            {
-                m_keyState[key] = glfwGetKey(window, i) == GLFW_PRESS;
-            }
+            auto pressed = glfwGetKey(window, i) == GLFW_PRESS;
+            m_keyState[key] = pressed;
         }
 
         int buttonCount;
