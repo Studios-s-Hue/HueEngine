@@ -1,5 +1,6 @@
 #include <HueEngine/Input/InputManager.h>
-#include <GLFW/glfw3.h>
+#include <HueEngine/Game/Game.h>
+#include <HueEngine/Game/GraphicsWindow.h>
 
 InputManager::InputManager() : m_inputEnable(true) {}
 
@@ -45,7 +46,7 @@ bool InputManager::IsKeyUp(const EKey &key) const
 bool InputManager::IsMouseDown(const EMouseButton &button) const
 {
     if (m_inputEnable)
-    { 
+    {
         return m_mouseButtonState.at(button);
     }
 
@@ -67,9 +68,11 @@ void InputManager::SetInputEnable(bool enable)
     m_inputEnable = enable;
 }
 
-void InputManager::Update()
+void InputManager::Update(Game *game)
 {
-    auto window = nullptr; // TODO: Get window from somewhere
+    //TODO maybe this is not the best way to get window handle
+    auto window = static_cast<GLFWwindow *>(game->GetGraphicsWindow()->GetHandle());
+
     if (m_inputEnable)
     {
         m_mouseButtonState[EMouseButton::Left] = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS;

@@ -1,6 +1,8 @@
 #pragma once
 #include <HueEngine\CoreMinimal.h>
 #include <HueEngine\CurrentPlatform.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h> 
 #include <set>
 
 struct WindowProperties

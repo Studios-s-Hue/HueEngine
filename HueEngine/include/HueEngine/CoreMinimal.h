@@ -18,3 +18,5 @@ struct WindowProperties;
 // Game
 class Game;
 class GameTimer;
+// Input
+class InputManager;

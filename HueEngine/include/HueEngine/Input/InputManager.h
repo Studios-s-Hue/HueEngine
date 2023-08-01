@@ -27,7 +27,7 @@ public:
     bool IsInputEnable() const { return m_inputEnable; }
 
 public:
-    void Update();
+    void Update(Game *game);
 
 private:
     std::unordered_map<EKey, bool> m_keyState;
