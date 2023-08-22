@@ -13,29 +13,37 @@ public:
 public:
     void Run();
     void Quit();
-    void SetTitle(const wchar_t *title);
+    void SetTitle(const char *title);
     void Init(const WindowProperties &properties);
 
 public:
     bool IsGamePaused() const;
     void SetGamePaused(bool paused);
 
+public:
+	float GetDeltaTime();
+
+public: //Modules Get
+    InputManager *GetInputManager();
+    GraphicsWindow *GetWindow();
+
 protected: // Events
     virtual void onQuit() {}
     virtual void onCreate() {}
-    virtual void onUpdate(float delta_time) {}
+    virtual void onUpdate(f32 delta_time) {}
 
 private:
-    void onUpdateInternal(); 
+    void onUpdateInternal();
 
 private:
-    bool m_isRunning = true;
+    bool m_isRunning = false;
     bool m_bReady = false;
-    bool m_bIsGamePaused = false;
-    float m_delta_time = 0.0f;
+    bool m_bIsGamePaused = false; 
 
 private:
     std::unique_ptr<GraphicsWindow> m_graphics_window;
+    std::unique_ptr<GameTimer> m_game_timer;
+    std::unique_ptr<InputManager> m_input_manager;
 
 private:
     friend class GraphicsWindow;

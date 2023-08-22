@@ -1,12 +1,13 @@
 #pragma once
 #include <HueEngine\CoreMinimal.h>
 #include <HueEngine\CurrentPlatform.h>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h> 
 #include <set>
 
 struct WindowProperties
 {
-	LPCSTR title = (LPCSTR) "My Game";
-	LPCSTR className = (LPCSTR) "HUEeWindowClass";
+	const char *title = "My Game";
 	i32 width = 1920;
 	i32 height = 1080;
 	bool vsync;
@@ -20,6 +21,8 @@ enum class WindowState
 	Minimized,
 	Maximized
 };
+
+struct GLFWwindow;
 
 class AppWindow
 {
@@ -43,9 +46,11 @@ public:
 
 public:
 	void *GetHandle();
-	void SetTitle(const wchar_t *title);
+	void SetTitle(const char *title);
 	bool IsFocused() const;
 	WindowState GetWindowState() const;
+	bool ShouldClose() const;
+	void Quit();
 
 public:
 	// EVENTs
@@ -54,13 +59,14 @@ public:
 	virtual void onDestroy() {}
 	virtual void onFocus() {}
 	virtual void onKillFocus() {}
+	virtual void onResize() {}
 
 private:
-	// static LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
-	void UpdateInternal(bool *isRunning);
+	static void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+	void onUpdateInternal();
 
 protected:
-	HWND m_hwnd;
+	GLFWwindow *m_glfwWindow;
 
 private:
 	friend class Game;
