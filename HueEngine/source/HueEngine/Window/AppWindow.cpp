@@ -1,4 +1,5 @@
 #include <HueEngine/Window/AppWindow.h> 
+#include <HueEngine/CurrentPlatform.h>
 
 AppWindow::AppWindow()
 {
@@ -25,7 +26,10 @@ bool AppWindow::Init(WindowProperties properties)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // Core profile, ignore deprecated functions
-    // glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // For Mac OS X
+
+#ifdef HUE_MACOS
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // For Mac OS X
+#endif
 
     m_glfwWindow = glfwCreateWindow(properties.width, properties.height, properties.title, NULL, NULL);
     if (!m_glfwWindow)
