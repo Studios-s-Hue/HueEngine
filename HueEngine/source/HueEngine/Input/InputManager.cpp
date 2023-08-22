@@ -1,7 +1,6 @@
 #include <HueEngine/Input/InputManager.h>
 #include <HueEngine/Game/Game.h>
 #include <HueEngine/Game/GraphicsWindow.h>
-#include "InputManager.h"
 
 InputManager::InputManager() : m_inputEnable(true) {}
 
